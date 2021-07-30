@@ -63,7 +63,7 @@ class WeatherViewController: UIViewController {
             self.maxTempLabel.text = String(response.maxTemp)
             
         case .failure(let error):
-            var message: String  = ""
+            let message: String
             switch error {
             case .jsonEncodeError:
                 message = "Jsonエンコードに失敗しました。"
