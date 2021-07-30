@@ -63,14 +63,18 @@ class WeatherViewController: UIViewController {
             self.maxTempLabel.text = String(response.maxTemp)
             
         case .failure(let error):
-            let message: String
+            var message: String  = ""
             switch error {
             case .jsonEncodeError:
                 message = "Jsonエンコードに失敗しました。"
             case .jsonDecodeError:
                 message = "Jsonデコードに失敗しました。"
             case .unknownError:
+                message = "不明なエラーが発生しました。"
+            case .yumemiUnknownError:
                 message = "エラーが発生しました。"
+            case .yumemiInvalidParameterError:
+                message = "不正なパラメータです"
             }
             
             let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
