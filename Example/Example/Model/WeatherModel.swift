@@ -21,10 +21,11 @@ class WeatherModelImpl: WeatherModel {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .formatted(dateFormatter)
         
-        let requestData = try encoder.encode(request)
-        guard let requestJsonString = String(data: requestData, encoding: .utf8) else {
+        guard let requestData = try? encoder.encode(request),
+              let requestJsonString = String(data: requestData, encoding: .utf8) else {
             throw WeatherError.jsonEncodeError
         }
+        
         return requestJsonString
     }
     
@@ -36,7 +37,12 @@ class WeatherModelImpl: WeatherModel {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        return try decoder.decode(Response.self, from: responseData)
+        
+        guard let response = try? decoder.decode(Response.self, from: responseData) else {
+            throw WeatherError.jsonDecodeError
+        }
+        
+        return response
     }
     
     func fetchWeather(at area: String, date: Date, completion: @escaping (Result<Response, WeatherError>) -> Void) {
