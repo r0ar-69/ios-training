@@ -12,14 +12,14 @@ import YumemiWeather
 
 class WeatherViewControllerTests: XCTestCase {
 
-    var weahterViewController: WeatherViewController!
-    var weahterModel: WeatherModelMock!
+    var weatherViewController: WeatherViewController!
+    var weatherModel: WeatherModelMock!
     
     override func setUpWithError() throws {
-        weahterModel = WeatherModelMock()
-        weahterViewController = R.storyboard.weather.instantiateInitialViewController()!
-        weahterViewController.weatherModel = weahterModel
-        _ = weahterViewController.view
+        weatherModel = WeatherModelMock()
+        weatherViewController = R.storyboard.weather.instantiateInitialViewController()!
+        weatherViewController.weatherModel = weatherModel
+        _ = weatherViewController.view
     }
 
     override func tearDownWithError() throws {
@@ -27,43 +27,43 @@ class WeatherViewControllerTests: XCTestCase {
     }
 
     func test_天気予報がsunnyだったらImageViewのImageにsunnyが設定されること_TintColorがredに設定されること() throws {
-        weahterModel.fetchWeatherImpl = { _ in
+        weatherModel.fetchWeatherImpl = { _ in
             Response(weather: .sunny, maxTemp: 0, minTemp: 0, date: Date())
         }
         
-        weahterViewController.loadWeather()
-        XCTAssertEqual(weahterViewController.weatherImageView.tintColor, R.color.red())
-        XCTAssertEqual(weahterViewController.weatherImageView.image, R.image.sunny())
+        weatherViewController.loadWeather()
+        XCTAssertEqual(weatherViewController.weatherImageView.tintColor, R.color.red())
+        XCTAssertEqual(weatherViewController.weatherImageView.image, R.image.sunny())
     }
     
     func test_天気予報がcloudyだったらImageViewのImageにcloudyが設定されること_TintColorがgrayに設定されること() throws {
-        weahterModel.fetchWeatherImpl = { _ in
+        weatherModel.fetchWeatherImpl = { _ in
             Response(weather: .cloudy, maxTemp: 0, minTemp: 0, date: Date())
         }
         
-        weahterViewController.loadWeather()
-        XCTAssertEqual(weahterViewController.weatherImageView.tintColor, R.color.gray())
-        XCTAssertEqual(weahterViewController.weatherImageView.image, R.image.cloudy())
+        weatherViewController.loadWeather()
+        XCTAssertEqual(weatherViewController.weatherImageView.tintColor, R.color.gray())
+        XCTAssertEqual(weatherViewController.weatherImageView.image, R.image.cloudy())
     }
     
     func test_天気予報がrainyだったらImageViewのImageにrainyが設定されること_TintColorがblueに設定されること() throws {
-        weahterModel.fetchWeatherImpl = { _ in
+        weatherModel.fetchWeatherImpl = { _ in
             Response(weather: .rainy, maxTemp: 0, minTemp: 0, date: Date())
         }
         
-        weahterViewController.loadWeather()
-        XCTAssertEqual(weahterViewController.weatherImageView.tintColor, R.color.blue())
-        XCTAssertEqual(weahterViewController.weatherImageView.image, R.image.rainy())
+        weatherViewController.loadWeather()
+        XCTAssertEqual(weatherViewController.weatherImageView.tintColor, R.color.blue())
+        XCTAssertEqual(weatherViewController.weatherImageView.image, R.image.rainy())
     }
     
     func test_最高気温_最低気温がUILabelに設定されること() throws {
-        weahterModel.fetchWeatherImpl = { _ in
+        weatherModel.fetchWeatherImpl = { _ in
             Response(weather: .rainy, maxTemp: 100, minTemp: -100, date: Date())
         }
         
-        weahterViewController.loadWeather()
-        XCTAssertEqual(weahterViewController.minTempLabel.text, "-100")
-        XCTAssertEqual(weahterViewController.maxTempLabel.text, "100")
+        weatherViewController.loadWeather()
+        XCTAssertEqual(weatherViewController.minTempLabel.text, "-100")
+        XCTAssertEqual(weatherViewController.maxTempLabel.text, "100")
     }
 }
 
