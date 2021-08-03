@@ -60,10 +60,8 @@ class WeatherModelImpl: WeatherModel {
                 }
             } catch let error as YumemiWeatherError {
                 completion(.failure(WeatherError(error: error)))
-            } catch let error as WeatherError {
-                completion(.failure(error))
             } catch {
-                completion(.failure(.unknownError))
+                completion(.failure(error as! WeatherError))
             }
         }
     }
@@ -73,9 +71,9 @@ extension WeatherError {
     init(error: YumemiWeatherError) {
         switch error {
         case .unknownError:
-            self = .yumemiUnknownError
+            self = .unknownError
         case .invalidParameterError:
-            self = .yumemiInvalidParameterError
+            self = .invalidParameterError
         }
     }
 }

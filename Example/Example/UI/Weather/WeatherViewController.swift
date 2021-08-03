@@ -72,10 +72,8 @@ class WeatherViewController: UIViewController {
             case .jsonDecodeError:
                 message = "Jsonデコードに失敗しました。"
             case .unknownError:
-                message = "不明なエラーが発生しました。"
-            case .yumemiUnknownError:
                 message = "エラーが発生しました。"
-            case .yumemiInvalidParameterError:
+            case .invalidParameterError:
                 message = "不正なパラメータです"
             }
             

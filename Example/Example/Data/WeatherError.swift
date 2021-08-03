@@ -12,6 +12,5 @@ enum WeatherError: Error {
     case jsonEncodeError
     case jsonDecodeError
     case unknownError
-    case yumemiUnknownError
-    case yumemiInvalidParameterError
+    case invalidParameterError
 }
