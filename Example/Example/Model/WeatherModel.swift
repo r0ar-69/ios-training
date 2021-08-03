@@ -62,6 +62,7 @@ class WeatherModelImpl: WeatherModel {
                 completion(.failure(WeatherError(error: error)))
             } catch {
                 completion(.failure(error as! WeatherError))
+                print("err:\(error)")
             }
         }
     }
